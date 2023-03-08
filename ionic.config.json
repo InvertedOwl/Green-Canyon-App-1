@@ -1,0 +1,7 @@
+{
+  "name": "GC-App2",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "vue"
+}
