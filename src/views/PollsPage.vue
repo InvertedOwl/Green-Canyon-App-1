@@ -1,0 +1,105 @@
+<template>
+    <ion-page>
+      <ion-header :translucent="true">
+        <ion-toolbar>
+          <ion-buttons slot="start">
+            <ion-menu-button color="primary"></ion-menu-button>
+          </ion-buttons>
+          <ion-title>Polls</ion-title>
+        </ion-toolbar>
+      </ion-header>
+  
+      <ion-content :fullscreen="true">
+        <ion-header collapse="condense">
+          <ion-toolbar>
+            <ion-title size="large">Polls</ion-title>
+          </ion-toolbar>
+        </ion-header>
+  
+        <div id="container">
+          <strong class="capitalize">Polls</strong>
+          <p>Explore <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+          <ion-button onclick="console.log('Test')">Test!</ion-button>
+  
+        </div>
+        <div id="cards">
+          <div v-for="(p, i) in polls" :key="i">
+
+            <ion-card>
+              <ion-card-header>
+                <ion-card-title> {{ p.title }} </ion-card-title>
+              </ion-card-header>
+
+              <ion-card-content>
+                {{ p.desc }}
+              </ion-card-content>
+              <div id="voteButton">
+                <ion-button :disabled="p.disabled" id="vote" >{{ p.button }}</ion-button>
+              </div>
+            </ion-card>
+
+          </div>
+
+          
+        </div>
+        
+  
+      </ion-content>
+    </ion-page>
+  </template>
+  
+  <script setup lang="ts">
+  import { IonButtons, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar, IonCard } from '@ionic/vue';
+  const polls = [
+  {
+    title: "Green Canyon Exec",
+    desc: "Vote for who you want to be in Green Canyon Executive Council",
+    button: "Vote Now",
+    disabled: "false"
+  },
+  {
+    title: "Green Canyon 2023-2024 Schedule",
+    desc: "Vote for a schedule",
+    button: "View Results",
+    disabled: "true"
+  }
+];
+  </script>
+  
+  <style scoped>
+  #container {
+    text-align: center;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 65px;
+  }
+  #vote {
+  }
+  #voteButton {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+  
+  #cards {
+  
+  }
+  
+  #container strong {
+    font-size: 20px;
+    line-height: 26px;
+  }
+  
+  #container p {
+    font-size: 16px;
+    line-height: 22px;
+    color: #5c1e1e;
+    margin: 0;
+  }
+  
+  #container a {
+    text-decoration: none;
+  }
+  </style>
+  
