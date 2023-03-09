@@ -56,13 +56,13 @@ import {
 const selectedIndex = ref(0);
 const appPages = [
   {
-    title: 'Announcements Page',
+    title: 'GC TV',
     url: '/announcements',
     iosIcon: tvSharp,
     mdIcon: tvSharp,
   },
   {
-    title: 'Polls Page',
+    title: 'Polls',
     url: '/polls',
     iosIcon: newspaperSharp,
     mdIcon: newspaperSharp,
