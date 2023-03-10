@@ -13,6 +13,10 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/polls',
     component: () => import ('../views/PollsPage.vue')
+  },
+  {
+    path: '/db',
+    component: () => import ('../views/DatabasePage.vue')
   }
 ]
 

@@ -33,6 +33,7 @@
 </template>
 
 <script setup lang="ts">
+
 import {
   IonApp,
   IonContent,
@@ -66,6 +67,12 @@ const appPages = [
     url: '/polls',
     iosIcon: newspaperSharp,
     mdIcon: newspaperSharp,
+  },
+  {
+    title: 'DBTest',
+    url: '/db',
+    iosIcon: newspaperSharp,
+    mdIcon: newspaperSharp,
   }
 ];
 const labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
@@ -74,6 +81,8 @@ const path = window.location.pathname.split('folder/')[1];
 if (path !== undefined) {
   selectedIndex.value = appPages.findIndex((page) => page.title.toLowerCase() === path.toLowerCase());
 }
+
+
 </script>
 
 <style scoped>
