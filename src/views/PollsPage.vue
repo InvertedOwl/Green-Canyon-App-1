@@ -16,12 +16,6 @@
           </ion-toolbar>
         </ion-header>
   
-        <div id="container">
-          <strong class="capitalize">Polls</strong>
-          <p>Explore <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-          <ion-button onclick="console.log('Test')">Test!</ion-button>
-  
-        </div>
         <div id="cards">
           <div v-for="(p, i) in polls" :key="i">
 

@@ -5,14 +5,14 @@
           <ion-buttons slot="start">
             <ion-menu-button color="primary"></ion-menu-button>
           </ion-buttons>
-          <ion-title>Announcements</ion-title>
+          <ion-title>Home</ion-title>
         </ion-toolbar>
       </ion-header>
   
       <ion-content :fullscreen="true">
         <ion-header collapse="condense">
           <ion-toolbar>
-            <ion-title size="large">Announcements</ion-title>
+            <ion-title size="large">Home</ion-title>
           </ion-toolbar>
         </ion-header>
 
@@ -37,9 +37,9 @@
     top: 65px;
   }
   
-  /* #cards {
+  #cards {
   
-  } */
+  }
   
   #container strong {
     font-size: 20px;

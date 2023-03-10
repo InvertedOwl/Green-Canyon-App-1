@@ -4,20 +4,25 @@ import { RouteRecordRaw } from 'vue-router';
 const routes: Array<RouteRecordRaw> = [
   {
     path: '',
-    redirect: '/announcements'
+    redirect: '/home'
   },
   {
-    path: '/announcements',
-    component: () => import ('../views/AnnouncementsPage.vue')
+    path: '/gctv',
+    component: () => import ('../views/GCTVPage.vue')
+  },
+  {
+    path: '/home',
+    component: () => import ('../views/HomePage.vue')
   },
   {
     path: '/polls',
     component: () => import ('../views/PollsPage.vue')
   },
   {
-    path: '/db',
-    component: () => import ('../views/DatabasePage.vue')
+    path: '/announcements',
+    component: () => import ('../views/AnnouncementsPage.vue')
   }
+  
 ]
 
 const router = createRouter({

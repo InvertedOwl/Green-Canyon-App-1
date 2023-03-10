@@ -14,8 +14,8 @@
               </ion-item>
             </ion-menu-toggle>
           </ion-list>
-          <p>Test</p>
-          <p>Test</p>
+
+
 
           <!-- <ion-list id="labels-list">
             <ion-list-header>Labels</ion-list-header>
@@ -51,26 +51,34 @@ import {
 import { ref } from 'vue';
 import {
   newspaperSharp,
-  tvSharp
+  tvSharp,
+  homeSharp,
+  megaphoneSharp
 } from 'ionicons/icons';
 
 const selectedIndex = ref(0);
 const appPages = [
   {
-    title: 'GC TV',
+    title: 'Home',
+    url: '/home',
+    iosIcon: homeSharp,
+    mdIcon: homeSharp,
+  },
+  {
+    title: 'Announcements',
     url: '/announcements',
+    iosIcon: megaphoneSharp,
+    mdIcon: megaphoneSharp,
+  },
+  {
+    title: 'GC TV',
+    url: '/gctv',
     iosIcon: tvSharp,
     mdIcon: tvSharp,
   },
   {
     title: 'Polls',
     url: '/polls',
-    iosIcon: newspaperSharp,
-    mdIcon: newspaperSharp,
-  },
-  {
-    title: 'DBTest',
-    url: '/db',
     iosIcon: newspaperSharp,
     mdIcon: newspaperSharp,
   }
