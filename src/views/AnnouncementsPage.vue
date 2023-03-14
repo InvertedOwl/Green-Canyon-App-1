@@ -16,9 +16,16 @@
           </ion-toolbar>
         </ion-header>
 
-        <p>
-            Hello World!
-        </p>
+        <!-- <div id="cards">
+            <ion-list>
+              <ion-item v-for="(item, index) in items" :key="index">
+                <iframe :width="windowWidth" :height="windowHeight" :src="videoUrl(item.id.videoId)" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+              </ion-item>
+            </ion-list>
+            <ion-infinite-scroll @ionInfinite="ionInfinite">
+              <ion-infinite-scroll-content></ion-infinite-scroll-content>
+            </ion-infinite-scroll>
+          </div> -->
 
       </ion-content>
     </ion-page>
@@ -26,8 +33,33 @@
   
   <script setup lang="ts">
   import { IonButtons, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar } from '@ionic/vue';
+
+  
   </script>
   
+  <script>
+  export default {
+    data() {
+      return {
+        windowWidth: window.innerWidth,
+        windowHeight: window.innerWidth / 1.77777
+      }
+    },
+    mounted() {
+      window.addEventListener('resize', this.handleResize)
+    },
+    beforeUnmount() {
+      window.removeEventListener('resize', this.handleResize)
+    },
+    methods: {
+      handleResize() {
+        this.windowWidth = window.innerWidth;
+        this.windowHeight = window.innerWidth / 1.77777;
+      }
+    }
+  }
+  </script>
+
   <style scoped>
   #container {
     text-align: center;
