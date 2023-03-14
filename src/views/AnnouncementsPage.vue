@@ -16,24 +16,45 @@
           </ion-toolbar>
         </ion-header>
 
-        <!-- <div id="cards">
-            <ion-list>
-              <ion-item v-for="(item, index) in items" :key="index">
-                <iframe :width="windowWidth" :height="windowHeight" :src="videoUrl(item.id.videoId)" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-              </ion-item>
-            </ion-list>
+        <div id="cards">
+              <ion-card v-for="(item, index) in announcements" :key="index">
+                <img alt="announcement image" :src=" item.imglink" />
+                <ion-card-header>
+                    <ion-card-title> {{ item.title }} </ion-card-title>
+                </ion-card-header>
+
+                <ion-card-content>
+                  {{ item.descr}}
+                </ion-card-content>
+                <div id="learnButton">
+                  <ion-button id="learn" >Learn More</ion-button>
+                </div>
+              </ion-card>
             <ion-infinite-scroll @ionInfinite="ionInfinite">
               <ion-infinite-scroll-content></ion-infinite-scroll-content>
             </ion-infinite-scroll>
-          </div> -->
+          </div>
 
       </ion-content>
     </ion-page>
   </template>
   
-  <script setup lang="ts">
+  <script setup>
   import { IonButtons, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar } from '@ionic/vue';
+  import { reactive } from 'vue';
 
+  const announcements = reactive([]); 
+
+  const getNewAnn = async () => {
+    const result =  await (await fetch("http://localhost:3000/announcements", {method: "GET"})).json();
+    console.log(result);
+    return result;
+  }
+
+  getNewAnn().then((result) => {
+    announcements.splice(0, announcements.length, ...result);
+    console.log("EEEEHHH" + announcements);
+  });
   
   </script>
   
@@ -43,6 +64,7 @@
       return {
         windowWidth: window.innerWidth,
         windowHeight: window.innerWidth / 1.77777
+
       }
     },
     mounted() {
@@ -56,11 +78,16 @@
         this.windowWidth = window.innerWidth;
         this.windowHeight = window.innerWidth / 1.77777;
       }
+
     }
   }
   </script>
 
   <style scoped>
+  ion-card {
+    text-align: center;
+  }
+
   #container {
     text-align: center;
     position: absolute;
@@ -68,10 +95,17 @@
     right: 0;
     top: 65px;
   }
+  #learn {
+  }
+  #learnButton {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
   
-  /* #cards {
+  #cards {
   
-  } */
+  }
   
   #container strong {
     font-size: 20px;
