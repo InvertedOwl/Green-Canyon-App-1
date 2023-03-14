@@ -16,21 +16,36 @@
           </ion-toolbar>
         </ion-header>
 
-        <p>
-            Hello World!
-        </p>
+        <ArticleComp title=""></ArticleComp>
 
       </ion-content>
     </ion-page>
   </template>
   
   <script>
-  export default {
-    name: 'ArticleComp',
-    props: {
-      title: String,
-      article: String
-    }
+import ArticleComp from './ArticleTemp.vue';
+
+import { IonButtons, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar } from '@ionic/vue';
+  import { reactive } from 'vue';
+
+  const announcements = reactive([]); 
+
+  const getNewAnn = async () => {
+    const result =  await (await fetch("http://localhost:3000/announcements", {method: "GET"})).json();
+    console.log(result);
+    return result;
   }
-  </script>
+
+  getNewAnn().then((result) => {
+    announcements.splice(0, announcements.length, ...result);
+    console.log("EEEEHHH" + announcements);
+  });
+
+export default {
+  name: 'MyComponent',
+  components: {
+    ArticleComp
+  }
+}
+</script>
   

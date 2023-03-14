@@ -27,7 +27,9 @@
                   {{ item.descr}}
                 </ion-card-content>
                 <div id="learnButton">
-                  <ion-button id="learn" >Learn More</ion-button>
+                  <router-link :to="{ path: '/article' }">
+                    <ion-button id="learn">Learn More</ion-button>
+                  </router-link>
                 </div>
               </ion-card>
             <ion-infinite-scroll @ionInfinite="ionInfinite">
