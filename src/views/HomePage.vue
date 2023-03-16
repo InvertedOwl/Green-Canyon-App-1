@@ -16,9 +16,6 @@
           </ion-toolbar>
         </ion-header>
 
-        <p>
-            Hello World!
-        </p>
 
       </ion-content>
     </ion-page>

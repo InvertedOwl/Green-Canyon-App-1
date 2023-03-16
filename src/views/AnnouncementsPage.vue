@@ -17,7 +17,7 @@
         </ion-header>
 
         <div id="cards">
-              <ion-card v-for="(item, index) in announcements" :key="index">
+            <ion-card v-for="(item, index) in announcements" :key="index">
                 <img alt="announcement image" :src=" item.imglink" />
                 <ion-card-header>
                     <ion-card-title> {{ item.title }} </ion-card-title>
@@ -29,7 +29,7 @@
                 <div id="learnButton">
                   <ion-button id="learn" :href="'/article?index=' + index">Learn More</ion-button>
                 </div>
-              </ion-card>
+            </ion-card>
             <ion-infinite-scroll @ionInfinite="ionInfinite">
               <ion-infinite-scroll-content></ion-infinite-scroll-content>
             </ion-infinite-scroll>

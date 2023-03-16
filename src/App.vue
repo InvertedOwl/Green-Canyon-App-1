@@ -53,7 +53,8 @@ import {
   newspaperSharp,
   tvSharp,
   homeSharp,
-  megaphoneSharp
+  megaphoneSharp,
+  calendarSharp
 } from 'ionicons/icons';
 
 const selectedIndex = ref(0);
@@ -81,6 +82,12 @@ const appPages = [
     url: '/polls',
     iosIcon: newspaperSharp,
     mdIcon: newspaperSharp,
+  },
+  {
+    title: 'Week Schedule',
+    url: '/schedule',
+    iosIcon: calendarSharp,
+    mdIcon: calendarSharp,
   }
 ];
 const labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];

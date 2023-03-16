@@ -27,6 +27,7 @@
               <ion-card-content>
                 {{ p.desc }}
               </ion-card-content>
+              
               <div id="voteButton">
                 <ion-button :disabled="p.disabled" id="vote" >{{ p.button }}</ion-button>
               </div>
