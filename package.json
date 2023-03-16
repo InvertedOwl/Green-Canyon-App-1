@@ -28,9 +28,11 @@
     "fs": "^0.0.1-security",
     "ionic-native": "^2.9.0",
     "ionicons": "^6.0.3",
+    "marked": "^4.2.12",
     "sequelize": "^6.29.2",
     "sqlite3": "^5.1.4",
     "vue": "^3.2.21",
+    "vue-markdown-render": "^2.0.1",
     "vue-router": "^4.0.12"
   },
   "devDependencies": {
