@@ -61,7 +61,7 @@
 ];
   </script>
   
-  <style scoped>
+  <style>
   #container {
     text-align: center;
     position: absolute;
