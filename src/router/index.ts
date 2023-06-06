@@ -25,6 +25,10 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/article',
     component: () => import ('../views/ArticlePage.vue')
+  },
+  {
+    path: '/poll',
+    component: () => import ('../views/PollPage.vue')
   }
   
 ]

@@ -29,7 +29,7 @@
               </ion-card-content>
               
               <div id="voteButton">
-                <ion-button :disabled="p.disabled" id="vote" >{{ p.button }}</ion-button>
+                <ion-button :href="'/poll?index=' + i" :disabled="p.disabled" id="vote" >{{ p.button }}</ion-button>
               </div>
             </ion-card>
 
@@ -43,22 +43,20 @@
     </ion-page>
   </template>
   
-  <script setup lang="ts">
+  <script setup>
   import { IonButtons, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar, IonCard } from '@ionic/vue';
-  const polls = [
-  {
-    title: "Green Canyon Exec",
-    desc: "Vote for who you want to be in Green Canyon Executive Council",
-    button: "Vote Now",
-    disabled: "false"
-  },
-  {
-    title: "Green Canyon 2023-2024 Schedule",
-    desc: "Vote for a schedule",
-    button: "View Results",
-    disabled: "true"
-  }
-];
+import { reactive } from 'vue';
+  const polls = reactive([]);
+
+  const getPolls = async () => {
+    const result = await (await fetch("http://192.168.0.124:3000/polls", {method: "GET"})).json();
+    return result;
+  };
+
+  getPolls().then((result) => {
+    polls.splice(0, polls.length, ...result)
+  })
+
   </script>
   
   <style>

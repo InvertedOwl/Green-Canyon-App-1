@@ -15,6 +15,12 @@
             </ion-menu-toggle>
           </ion-list>
 
+          
+          <!-- <div v-for="index in 10" :key="index">
+            <svg width="100" height="100" class="triangle" :style="randomPos()">
+                <polygon points="0, 0, 50, 50, 0, 50" fill="#FFF"/>
+            </svg>
+          </div> -->
 
 
           <!-- <ion-list id="labels-list">
@@ -97,12 +103,21 @@ if (path !== undefined) {
   selectedIndex.value = appPages.findIndex((page) => page.title.toLowerCase() === path.toLowerCase());
 }
 
+function randomPos () {
+
+    const randomX = Math.random() * 200; // Random X position
+    const randomY = Math.random() * 500; // Random Y position
+    const randomRotation = Math.random() * 360; // Random rotation angle
+    const scale = (Math.random() * 0.5) + 0.5;
+
+    return `position: absolute; transform: translate(${randomX}px, ${randomY}px) rotate(${randomRotation}deg) scale(${scale})`;
+}
 
 </script>
 
 <style scoped>
 ion-menu ion-content {
-  --background: var(--ion-item-background, var(--ion-background-color, #fff));
+  --background: var(--ion-item-background, var(--ion-background-color, rgb(34, 93, 79)));
 }
 
 ion-menu.md ion-content {
@@ -126,7 +141,7 @@ ion-menu.md ion-note {
 }
 
 ion-menu.md ion-list#inbox-list {
-  border-bottom: 1px solid var(--ion-color-step-150, #cceec0);
+  border-bottom: 1px solid var(--ion-color-step-150, #6ac34a);
 }
 
 ion-menu.md ion-list#inbox-list ion-list-header {
@@ -193,7 +208,7 @@ ion-menu.ios ion-item.selected ion-icon {
 
 ion-menu.ios ion-item ion-icon {
   font-size: 24px;
-  color: #73849a;
+  color: #8c9bae;
 }
 
 ion-menu.ios ion-list#labels-list ion-list-header {

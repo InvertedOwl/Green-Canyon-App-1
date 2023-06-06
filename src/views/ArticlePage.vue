@@ -29,7 +29,7 @@
   const announcements = reactive([]); 
 
   const getNewAnn = async () => {
-    const result =  await (await fetch("http://localhost:3000/announcements", {method: "GET"})).json();
+    const result =  await (await fetch("http://192.168.0.124:3000/announcements", {method: "GET"})).json();
     console.log(result);
     return result;
   }
@@ -70,7 +70,7 @@ import { IonButtons, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, Io
 
 
 export default {
-  name: 'MyComponent',
+  name: 'ArticlePage',
   components: {
     ArticleComp
   }
