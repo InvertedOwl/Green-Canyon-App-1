@@ -49,7 +49,7 @@ import { reactive } from 'vue';
   const polls = reactive([]);
 
   const getPolls = async () => {
-    const result = await (await fetch("http://192.168.0.124:3000/polls", {method: "GET"})).json();
+    const result = await (await fetch("http://localhost:3000/polls", {method: "GET"})).json();
     return result;
   };
 

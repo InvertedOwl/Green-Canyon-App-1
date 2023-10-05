@@ -3,10 +3,11 @@
     <ion-split-pane content-id="main-content">
       <ion-menu content-id="main-content" type="overlay">
         <ion-content>
-          <ion-list id="inbox-list">
-            <ion-list-header>Green Canyon</ion-list-header>
+          <ion-list id="inbox-list" style="border-radius: 15px;">
+            <!-- <ion-list-header>Green Canyon</ion-list-header> -->
             <!-- <ion-note>Testing</ion-note> -->
 
+            <img src="https://www.ccsdut.org/cms/lib/UT02205719/Centricity/Domain/694/GreenCanyonWolves%20with%20Wolf%20Graphic.png">
             <ion-menu-toggle auto-hide="false" v-for="(p, i) in appPages" :key="i">
               <ion-item @click="selectedIndex = i" router-direction="root" :router-link="p.url" lines="none" detail="false" class="hydrated" :class="{ selected: selectedIndex === i }">
                 <ion-icon aria-hidden="true" slot="start" :ios="p.iosIcon" :md="p.mdIcon"></ion-icon>
@@ -14,23 +15,6 @@
               </ion-item>
             </ion-menu-toggle>
           </ion-list>
-
-          
-          <!-- <div v-for="index in 10" :key="index">
-            <svg width="100" height="100" class="triangle" :style="randomPos()">
-                <polygon points="0, 0, 50, 50, 0, 50" fill="#FFF"/>
-            </svg>
-          </div> -->
-
-
-          <!-- <ion-list id="labels-list">
-            <ion-list-header>Labels</ion-list-header>
-
-            <ion-item v-for="(label, index) in labels" lines="none" :key="index">
-              <ion-icon aria-hidden="true" slot="start" :ios="bookmarkOutline" :md="bookmarkSharp"></ion-icon>
-              <ion-label>{{ label }}</ion-label>
-            </ion-item>
-          </ion-list> -->
         </ion-content>
       </ion-menu>
       <ion-router-outlet id="main-content"></ion-router-outlet>
@@ -38,7 +22,7 @@
   </ion-app>
 </template>
 
-<script setup lang="ts">
+<script setup>
 
 import {
   IonApp,
@@ -97,11 +81,19 @@ const appPages = [
   }
 ];
 const labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
-
-const path = window.location.pathname.split('folder/')[1];
-if (path !== undefined) {
-  selectedIndex.value = appPages.findIndex((page) => page.title.toLowerCase() === path.toLowerCase());
+const indecies= {
+  "home": 0,
+  "announcements": 1,
+  "article": 1,
+  "gctv": 2,
+  "polls": 3,
+  "schedule": 4
 }
+const path = window.location.pathname.replace("/", "");
+console.log(path)
+console.log(indecies[path]);
+selectedIndex.value = indecies[path];
+
 
 function randomPos () {
 
@@ -115,10 +107,14 @@ function randomPos () {
 
 </script>
 
-<style scoped>
-ion-menu ion-content {
-  --background: var(--ion-item-background, var(--ion-background-color, rgb(34, 93, 79)));
-}
+<style>
+  ion-menu ion-content {
+    --background: var(--ion-item-background, var(--ion-background-color, rgb(34, 93, 79)));
+  }
+
+  ion-content {
+    --background: #fff linear-gradient(to top, rgba(16, 64, 52, 1), transparent);
+  }
 
 ion-menu.md ion-content {
   --padding-start: 8px;

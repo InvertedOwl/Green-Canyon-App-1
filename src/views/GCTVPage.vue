@@ -26,7 +26,7 @@
 
           <div id="cards">
             <ion-list>
-              <ion-item v-for="(item, index) in items" :key="index">
+              <ion-item v-for="(item, index) in items" :key="index" class="video">
                 <iframe :width="windowWidth" :height="windowHeight" :src="videoUrl(item.id.videoId)" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
               </ion-item>
             </ion-list>
@@ -50,7 +50,7 @@ import { reactive } from 'vue';
 let resultNum = 5;
 
 const getNewVideos = async () => {
-  const result =  await (await fetch("https://www.googleapis.com/youtube/v3/search?key=AIzaSyAy3canGYotL10o_c8EhlIwPjxDvliEhjw&channelId=UCiJmpBrGbX9oc2YQRCxYnrA&part=snippet,id&order=date&maxResults=" + resultNum, {method: "GET"})).json();
+  const result =  await (await fetch("https://www.googleapis.com/youtube/v3/search?key=AIzaSyAy3canGYotL10o_c8EhlIwPjxDvliEhjw&channelId=UC31rtOI4SCddOKbNC6o3EYA&part=snippet,id&order=date&maxResults=" + resultNum, {method: "GET"})).json();
   console.log(result);
   return result.items;
 }
@@ -112,6 +112,11 @@ export default {
   left: 0;
   right: 0;
   top: 65px;
+}
+
+.video {
+  --inner-padding-end: 5;
+  --padding-start: 5;
 }
 
 #cards > * {
