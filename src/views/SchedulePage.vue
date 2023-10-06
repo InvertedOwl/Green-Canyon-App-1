@@ -16,7 +16,8 @@
           </ion-toolbar>
         </ion-header>
         
-  
+        <pdf src="https://docs.google.com/viewerng/thumb?ds=AON1mFzwDZ42Fl6qS18gqY4w-MfqX7QU2nBXY_tawKgi-zN7R5dRoiUD5RK-Ap_QHgOjNvY0X3cu5Lz7BPcSyRKj9BBoiVyIa2xGp_elwqQURo-IVmzM0Cj4ZBJmabD-t71A2AYPdzkd9a4f_8SU2VlBpIrmuJbTTFiS9M8r994FKlEQw20JWUMCXf2dDIFUsl8iDouTeZcMzdXa0z8WICKdNHbWoH2TospB9T4NasqdGTtGdv17JET9JxAnZEdWaZHy5SbfBqMSZ-h7lRlc0sEbpkycd_M18_e-2Xlvjtu6edPk0oSvgZVP83RLJ_4bLj08w1bVd1Jt&ck=lantern&authuser=0&w=800&webp=true&p=proj"></pdf>
+
       </ion-content>
     </ion-page>
   </template>

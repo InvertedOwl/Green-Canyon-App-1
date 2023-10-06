@@ -16,6 +16,11 @@
           </ion-toolbar>
         </ion-header>
 
+        <ion-card >
+          <img class="header" src="https://www.ccsdut.org/cms/lib/UT02205719/Centricity/Domain/694/GreenCanyonWolves%20with%20Wolf%20Graphic.png" style="height: 100px;">
+        </ion-card>
+
+        <div class="line"></div>
 
       </ion-content>
     </ion-page>
@@ -26,7 +31,20 @@
   </script>
   
   <style scoped>
+  .line {
+    width: 80%;
+    height: 2px;
+    background-color: rgb(56, 56, 56);
+    position: relative;
+    left: 50%;
+    transform: translate(-50%);
+  }
 
+  .header {
+    position: relative;
+    left: 50%;
+    transform: translate(-50%);
+  }
 
   #container {
     text-align: center;
