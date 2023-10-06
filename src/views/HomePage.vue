@@ -34,7 +34,7 @@
   .line {
     width: 80%;
     height: 2px;
-    background-color: rgb(56, 56, 56);
+    background-color: rgb(95, 95, 95);
     position: relative;
     left: 50%;
     transform: translate(-50%);

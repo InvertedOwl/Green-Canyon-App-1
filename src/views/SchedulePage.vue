@@ -15,9 +15,16 @@
             <ion-title size="large">Schedule</ion-title>
           </ion-toolbar>
         </ion-header>
-        
-        <pdf src="https://docs.google.com/viewerng/thumb?ds=AON1mFzwDZ42Fl6qS18gqY4w-MfqX7QU2nBXY_tawKgi-zN7R5dRoiUD5RK-Ap_QHgOjNvY0X3cu5Lz7BPcSyRKj9BBoiVyIa2xGp_elwqQURo-IVmzM0Cj4ZBJmabD-t71A2AYPdzkd9a4f_8SU2VlBpIrmuJbTTFiS9M8r994FKlEQw20JWUMCXf2dDIFUsl8iDouTeZcMzdXa0z8WICKdNHbWoH2TospB9T4NasqdGTtGdv17JET9JxAnZEdWaZHy5SbfBqMSZ-h7lRlc0sEbpkycd_M18_e-2Xlvjtu6edPk0oSvgZVP83RLJ_4bLj08w1bVd1Jt&ck=lantern&authuser=0&w=800&webp=true&p=proj"></pdf>
 
+        <vue-iframe
+    src="https://docs.google.com/viewerng/viewer?url=https://www.ccsdut.org//cms/lib/UT02205719/Centricity/Domain/465/October+9-14-23.pdf"
+    allow="camera *; geolocation *; microphone *; autoplay *"
+    frame-id="my-ifram"
+    name="my-frame"
+    width="150px"
+    height="200px"/>
+
+        <iframe id="doc-viewer-7644" src="https://docs.google.com/viewer?url=https://www.ccsdut.org//cms/lib/UT02205719/Centricity/Domain/465/October%209-14-23.pdf&amp;embedded=true" width="100%" height="780" style="border: none;" title=" - Document Viewer" role="document"></iframe>
       </ion-content>
     </ion-page>
   </template>
@@ -26,7 +33,7 @@
 
 import { IonButtons, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar } from '@ionic/vue';
 import { reactive } from 'vue';
-
+import VueIframe from 'vue-iframes'
 let resultNum = 5;
 
 const getNewVideos = async () => {
@@ -61,7 +68,10 @@ const ionInfinite = (ev) => {
 
 <script>
 export default {
+
+  
   data() {
+    
     return {
       windowWidth: window.innerWidth,
       windowHeight: window.innerWidth / 1.77777
