@@ -50,13 +50,16 @@
 <script setup>
   import { IonButtons, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar } from '@ionic/vue';
   import { reactive } from 'vue';
+  import { APIENDPOINT } from './constants';
 
   const announcements = reactive([]); 
   let off = 0;
 
 const getNewAnn = async () => {
+  const endpoint = APIENDPOINT + "/announcements?max=10&offset=" + (off);
+  console.log(endpoint);
   try {
-    const result =  (await (await fetch("http://192.168.0.4:3000/announcements?max=10&offset=" + (off), {method: "GET"})).json()).data;
+    const result =  (await (await fetch(endpoint, {method: "GET"})).json()).data;
     return result;
   } catch (e) {
     console.log(e);

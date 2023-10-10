@@ -28,6 +28,7 @@
   const article = reactive({});
   const img = reactive({});
   const announcements = reactive([]); 
+  import { APIENDPOINT } from './constants';
 
   const qs = (function(a) {
     if (a == "") return {};
@@ -48,7 +49,7 @@ const t = qs["index"];
 
 const getIndexedAnn = async () => {
   try {
-    const result =  (await (await fetch("http://192.168.0.4:3000/announcements?max=1&offset=" + t, {method: "GET"})).json()).data;
+    const result =  (await (await fetch(APIENDPOINT + "/announcements?max=1&offset=" + t, {method: "GET"})).json()).data;
     console.log(result[0]);
     return result[0];
   } catch (e) {

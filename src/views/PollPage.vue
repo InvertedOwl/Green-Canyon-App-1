@@ -52,7 +52,7 @@
           </ion-card>
         </div>
 
-        <ion-button style="position: relative; left: 50%; transform: translate(-50%);">Submit Poll</ion-button>
+        <ion-button style="position: relative; left: 50%; transform: translate(-50%);" @click="onSubmit">Submit Poll</ion-button>
 
       </ion-content>
     </ion-page>
@@ -61,6 +61,12 @@
 <script setup>
 const title = reactive({});
 const polldata = reactive({});
+import { APIENDPOINT } from './constants';
+import { Device } from '@capacitor/device';
+
+const onSubmit = async () => {
+  console.log( await Device.getId());
+}
 
 const qs = (function(a) {
   if (a == "") return {};
@@ -81,7 +87,7 @@ const t = qs["index"];
 
 const getIndexedPoll = async () => {
   try {
-    const result =  (await (await fetch("http://192.168.0.4:3000/polls?max=1&offset=" + t, {method: "GET"})).json()).data;
+    const result =  (await (await fetch(APIENDPOINT + "/polls?max=1&offset=" + t, {method: "GET"})).json()).data;
     return result[0];
   } catch (e) {
     console.log(e);

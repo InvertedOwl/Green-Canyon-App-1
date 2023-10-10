@@ -33,6 +33,10 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/schedule',
     component: () => import ('../views/SchedulePage.vue')
+  },
+  {
+    path: '/notifs',
+    component: () => import ('../views/NotificationsPage.vue')
   }
   
 ]

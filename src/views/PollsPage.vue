@@ -55,9 +55,10 @@
 import { IonButtons, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar, IonCard } from '@ionic/vue';
 import { reactive } from 'vue';
 import { Storage } from '@ionic/storage';
+import { APIENDPOINT } from './constants';
 
 const store = new Storage();
-await store.create();
+// await store.create();
 
 
 const polls = reactive([]);
@@ -66,7 +67,7 @@ let off = 0;
 const getPolls = async () => {
 
   try {
-    const result =  (await (await fetch("http://192.168.0.4:3000/polls?max=10&offset=" + (off), {method: "GET"})).json()).data;
+    const result =  (await (await fetch(APIENDPOINT + "/polls?max=10&offset=" + (off), {method: "GET"})).json()).data;
     return result;
   } catch (e) {
     console.log(e);
