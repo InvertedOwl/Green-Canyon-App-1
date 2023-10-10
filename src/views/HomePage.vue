@@ -22,6 +22,22 @@
 
         <div class="line"></div>
 
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title style="text-align: center;">Announcements</ion-card-title>
+          </ion-card-header>
+        </ion-card>
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title style="text-align: center;">Polls</ion-card-title>
+          </ion-card-header>
+        </ion-card>
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title style="text-align: center;">WolfDen Productions</ion-card-title>
+          </ion-card-header>
+        </ion-card>
+
       </ion-content>
     </ion-page>
   </template>

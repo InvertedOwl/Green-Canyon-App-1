@@ -16,7 +16,8 @@
           </ion-toolbar>
         </ion-header>
 
-        <ArticleComp :title="title.title" :article="article.article" :img="img.img"></ArticleComp>
+          <ArticleComp :title="title.title" :article="article.article" :img="img.img"></ArticleComp>
+
 
       </ion-content>
     </ion-page>
@@ -28,11 +29,6 @@
   const img = reactive({});
   const announcements = reactive([]); 
 
-  const getNewAnn = async () => {
-    const result =  await (await fetch("http://localhost:3000/announcements", {method: "GET"})).json();
-    console.log(result);
-    return result;
-  }
   const qs = (function(a) {
     if (a == "") return {};
     const b = {};
@@ -48,24 +44,34 @@
 })(window.location.search.substr(1).split('&'));
 
 
-  const t = qs["index"];
+const t = qs["index"];
 
-  getNewAnn().then((result) => {
-    announcements.splice(0, announcements.length, ...result);
-    title.title = announcements[t].title;
-    article.article = announcements[t].article
-    img.img = announcements[t].imglink;
-    console.log(title);
-  });
+const getIndexedAnn = async () => {
+  try {
+    const result =  (await (await fetch("http://192.168.0.4:3000/announcements?max=1&offset=" + t, {method: "GET"})).json()).data;
+    console.log(result[0]);
+    return result[0];
+  } catch (e) {
+    console.log(e);
+  }
+  return [];
+}
+
+
+getIndexedAnn().then((result) => {
+  title.title = result.title;
+  article.article = result.article
+  img.img = result.imglink;
+});
 
 
 </script>
 
-  <script>
+<script>
 import ArticleComp from './ArticleTemp.vue';
 
 import { IonButtons, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar } from '@ionic/vue';
-  import { reactive } from 'vue';
+import { reactive } from 'vue';
 
 
 

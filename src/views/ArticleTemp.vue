@@ -1,6 +1,11 @@
 <template>
-  <img :src="img" alt="Article Image" id="articleimg">
-  <vue-markdown :source="article + ''" id="article"></vue-markdown>
+    <ion-card>
+      <img :src="img" alt="Article Image" id="articleimg">
+    </ion-card>
+
+  <ion-card>
+    <vue-markdown :source="article + ''" id="article"></vue-markdown>
+  </ion-card>
 </template>
 
 <script setup>

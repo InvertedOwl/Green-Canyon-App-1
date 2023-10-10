@@ -16,15 +16,10 @@
           </ion-toolbar>
         </ion-header>
 
-        <vue-iframe
-    src="https://docs.google.com/viewerng/viewer?url=https://www.ccsdut.org//cms/lib/UT02205719/Centricity/Domain/465/October+9-14-23.pdf"
-    allow="camera *; geolocation *; microphone *; autoplay *"
-    frame-id="my-ifram"
-    name="my-frame"
-    width="150px"
-    height="200px"/>
-
-        <iframe id="doc-viewer-7644" src="https://docs.google.com/viewer?url=https://www.ccsdut.org//cms/lib/UT02205719/Centricity/Domain/465/October%209-14-23.pdf&amp;embedded=true" width="100%" height="780" style="border: none;" title=" - Document Viewer" role="document"></iframe>
+        <a class="ion-home color-primary item" href="#" onclick="window.open('http://192.168.0.4:3000/weekly', '_system', 'location=yes'); return false;">          
+          <img src="http://192.168.0.4:3000/weekly" alt="">
+        </a>
+        
       </ion-content>
     </ion-page>
   </template>
@@ -33,36 +28,8 @@
 
 import { IonButtons, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar } from '@ionic/vue';
 import { reactive } from 'vue';
-import VueIframe from 'vue-iframes'
-let resultNum = 5;
-
-const getNewVideos = async () => {
-  const result =  await (await fetch("https://www.googleapis.com/youtube/v3/search?key=AIzaSyAy3canGYotL10o_c8EhlIwPjxDvliEhjw&channelId=UC31rtOI4SCddOKbNC6o3EYA&part=snippet,id&order=date&maxResults=" + resultNum, {method: "GET"})).json();
-  console.log(result);
-  return result.items;
-}
 
 
-const videoUrl = (videoId) => {
-  console.log(videoId);
-  return `https://www.youtube.com/embed/${videoId}`;
-}
-
-const items = reactive([]);
-getNewVideos().then((result) => {
-  items.splice(0, items.length, ...result);
-  console.log("EEEEHHH" + items);
-});
-
-const ionInfinite = (ev) => {
-  resultNum += 5;
-  getNewVideos().then((result) => {
-    items.splice(0, items.length, ...result);
-    console.log("EEEEHHH" + items);
-    setTimeout(() => ev.target.complete(), 500);
-
-  });
-};
 </script>
 
 

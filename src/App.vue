@@ -15,6 +15,12 @@
               </ion-item>
             </ion-menu-toggle>
           </ion-list>
+          <div class="bottom-links">
+            <ion-item style=" border-radius: 25px 25px 0px 0px;" onclick="window.open('https://www.ccsdut.org/domain/464', '_system', 'location=yes'); return false;">
+              <ion-icon aria-hidden="true" slot="start" :md="linkSharp"></ion-icon>
+              <ion-label>Quick Links</ion-label>
+            </ion-item>
+          </div>
         </ion-content>
       </ion-menu>
       <ion-router-outlet id="main-content"></ion-router-outlet>
@@ -44,7 +50,9 @@ import {
   tvSharp,
   homeSharp,
   megaphoneSharp,
-  calendarSharp
+  calendarSharp,
+  linkSharp,
+  notificationsSharp
 } from 'ionicons/icons';
 
 const selectedIndex = ref(0);
@@ -62,7 +70,7 @@ const appPages = [
     mdIcon: megaphoneSharp,
   },
   {
-    title: 'GC TV',
+    title: 'WolfDen Productions',
     url: '/gctv',
     iosIcon: tvSharp,
     mdIcon: tvSharp,
@@ -79,6 +87,13 @@ const appPages = [
     iosIcon: calendarSharp,
     mdIcon: calendarSharp,
   }
+  ,
+  {
+    title: 'Notifications',
+    url: '/notifs',
+    iosIcon: notificationsSharp,
+    mdIcon: notificationsSharp,
+  }
 ];
 const labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
 const indecies= {
@@ -87,11 +102,10 @@ const indecies= {
   "article": 1,
   "gctv": 2,
   "polls": 3,
+  "poll": 3,
   "schedule": 4
 }
 const path = window.location.pathname.replace("/", "");
-console.log(path)
-console.log(indecies[path]);
 selectedIndex.value = indecies[path];
 
 
@@ -104,6 +118,8 @@ function randomPos () {
 
     return `position: absolute; transform: translate(${randomX}px, ${randomY}px) rotate(${randomRotation}deg) scale(${scale})`;
 }
+
+
 
 </script>
 
@@ -119,9 +135,25 @@ function randomPos () {
 ion-menu.md ion-content {
   --padding-start: 8px;
   --padding-end: 8px;
-  --padding-top: 20px;
+  --padding-top: calc(env(safe-area-inset-top) + 8px);
   --padding-bottom: 20px;
 }
+
+.bottom-links {
+  position: absolute;
+  bottom: 0;
+  margin: 0;
+  padding: 0;
+  height: 50px;
+  width: calc(304px - 16px);
+  border-bottom: 2px solid white;        
+}
+@media (max-width: 340px) {
+  .bottom-links {
+    width: calc(264px - 16px);
+  }  
+}
+
 
 ion-menu.md ion-list {
   padding: 20px 0;

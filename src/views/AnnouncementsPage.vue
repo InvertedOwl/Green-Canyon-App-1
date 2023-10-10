@@ -1,62 +1,99 @@
 <template>
-    <ion-page>
-      <ion-header :translucent="true">
+  <ion-page>
+    <ion-header :translucent="true">
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-menu-button color="primary"></ion-menu-button>
+        </ion-buttons>
+        <ion-title>Announcements</ion-title>
+      </ion-toolbar>
+    </ion-header>
+
+    <ion-content :fullscreen="true">
+      <ion-header collapse="condense">
         <ion-toolbar>
-          <ion-buttons slot="start">
-            <ion-menu-button color="primary"></ion-menu-button>
-          </ion-buttons>
-          <ion-title>Announcements</ion-title>
+          <ion-title size="large">Announcements</ion-title>
         </ion-toolbar>
       </ion-header>
-  
-      <ion-content :fullscreen="true">
-        <ion-header collapse="condense">
-          <ion-toolbar>
-            <ion-title size="large">Announcements</ion-title>
-          </ion-toolbar>
-        </ion-header>
+      <ion-card>
+        <ion-card-content>
+          <strong style="font-size: 30px; line-height: 26px;">Announcements</strong>
 
-        <div id="cards">
-            <ion-card v-for="(item, index) in announcements" :key="index">
-                <img alt="announcement image" :src=" item.imglink" />
-                <ion-card-header>
-                    <ion-card-title> {{ item.title }} </ion-card-title>
-                </ion-card-header>
+        </ion-card-content>
+      </ion-card>
+      <div id="cards">
+          <ion-card v-for="(item, index) in announcements" :key="index">
+              <img style="height: 200px;" alt="announcement image" :src=" item.imglink" />
+              <ion-card-header>
+                  <ion-card-title> {{ item.title }} </ion-card-title>
+                  <ion-card-subtitle> {{ getDate(item.timestamp) }}</ion-card-subtitle>
+              </ion-card-header>
 
-                <ion-card-content>
+              <ion-card-content>
+                <p>
                   {{ item.descr}}
-                </ion-card-content>
-                <div id="learnButton">
-                  <ion-button id="learn" :href="'/article?index=' + index">Learn More</ion-button>
-                </div>
-            </ion-card>
-            <ion-infinite-scroll @ionInfinite="ionInfinite">
-              <ion-infinite-scroll-content></ion-infinite-scroll-content>
-            </ion-infinite-scroll>
-          </div>
+                </p>
+              </ion-card-content>
+              <div id="learnButton">
+                <ion-button id="learn" :href="'/article?index=' + index">Learn More</ion-button>
+              </div>
+          </ion-card>
+          <ion-infinite-scroll @ionInfinite="ionInfinite">
+            <ion-infinite-scroll-content></ion-infinite-scroll-content>
+          </ion-infinite-scroll>
+        </div>
 
-      </ion-content>
-    </ion-page>
-  </template>
+    </ion-content>
+  </ion-page>
+</template>
   
-  <script setup>
+<script setup>
   import { IonButtons, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar } from '@ionic/vue';
   import { reactive } from 'vue';
 
   const announcements = reactive([]); 
+  let off = 0;
 
-  const getNewAnn = async () => {
-    const result =  await (await fetch("http://localhost:3000/announcements", {method: "GET"})).json();
-    console.log(result);
+const getNewAnn = async () => {
+  try {
+    const result =  (await (await fetch("http://192.168.0.4:3000/announcements?max=10&offset=" + (off), {method: "GET"})).json()).data;
     return result;
+  } catch (e) {
+    console.log(e);
   }
+  return [];
 
+}
+
+const ionInfinite = (ev) => {
+  off += 10;
   getNewAnn().then((result) => {
-    announcements.splice(0, announcements.length, ...result);
-    console.log("EEEEHHH" + announcements);
+    if (result.length == 0) {
+      return;
+    }
+    console.log(result);
+    result.forEach(element => {
+      announcements.push(element);
+    });
+    setTimeout(() => ev.target.complete(), 500);
+
   });
+};
+
+getNewAnn().then((result) => {
+  announcements.splice(0, announcements.length, ...result);
+});
+
+const getDate = (d) => {
+  const timestamp = d * 1000;
+  const date = new Date(timestamp);
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  const year = date.getFullYear();
+  return `${month}/${day}/${year}`;
+}
   
-  </script>
+</script>
   
   <script>
   export default {
@@ -86,6 +123,10 @@
   <style scoped>
   ion-card {
     text-align: center;
+  }
+
+  p {
+    font-size: large !important;
   }
 
   #container {

@@ -17,7 +17,9 @@
     "@capacitor/ios": "^5.0.0",
     "@capacitor/keyboard": "^5.0.0",
     "@capacitor/status-bar": "^5.0.0",
+    "@coddicat/vue-pinch-scroll-zoom": "^4.2.4",
     "@ionic-native/core": "^5.1.0",
+    "@ionic/storage": "^4.0.0",
     "@ionic/vue": "^6.0.0",
     "@ionic/vue-router": "^6.0.0",
     "cordova": "^11.1.0",
@@ -31,6 +33,8 @@
     "vue-iframes": "^0.0.20",
     "vue-markdown-render": "^2.0.1",
     "vue-pdf": "^4.3.0",
+    "vue-pdf-embed": "^1.2.1",
+    "vue-pinch-zoom": "^1.0.1",
     "vue-router": "^4.0.12"
   },
   "devDependencies": {
