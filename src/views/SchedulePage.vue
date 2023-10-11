@@ -26,7 +26,7 @@
   
 <script setup>
 
-import { IonButtons, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar } from '@ionic/vue';
+import { IonButtons, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar, IonCard, IonCardHeader, IonCardTitle, IonButton } from '@ionic/vue';
 import { reactive } from 'vue';
 import { APIENDPOINT } from './constants';
 

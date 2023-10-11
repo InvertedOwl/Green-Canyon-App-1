@@ -5,20 +5,16 @@
           <ion-buttons slot="start">
             <ion-menu-button color="primary"></ion-menu-button>
           </ion-buttons>
-          <ion-title>Weekly Schedule</ion-title>
+          <ion-title>Notifications</ion-title>
         </ion-toolbar>
       </ion-header>
   
       <ion-content :fullscreen="true">
         <ion-header collapse="condense">
           <ion-toolbar>
-            <ion-title size="large">Schedule</ion-title>
+            <ion-title size="large">Notifications</ion-title>
           </ion-toolbar>
         </ion-header>
-
-        <a class="ion-home color-primary item" href="#" onclick="window.open('http://192.168.0.4:3000/weekly', '_system', 'location=yes'); return false;">          
-          <img :src="APIENDPOINT + '/weekly'" alt="">
-        </a>
         
       </ion-content>
     </ion-page>
@@ -26,7 +22,7 @@
   
 <script setup>
 
-import { IonButtons, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar } from '@ionic/vue';
+import { IonButtons, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar, IonCard, IonCardHeader, IonCardTitle, IonButton} from '@ionic/vue';
 import { reactive } from 'vue';
 import { APIENDPOINT } from './constants';
 

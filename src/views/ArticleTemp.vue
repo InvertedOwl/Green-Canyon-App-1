@@ -14,7 +14,9 @@ import VueMarkdown from 'vue-markdown-render'
 </script>
 
 <script>
-import { reactive } from 'vue';
+import { reactive } from 'vue'; 
+import { IonButtons, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar, IonCard, IonCardHeader, IonCardTitle, IonButton  } from '@ionic/vue';
+
 
 export default {
   name: 'ArticleComp',

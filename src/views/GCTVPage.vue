@@ -44,7 +44,7 @@
   
 <script setup>
 
-import { IonButtons, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar } from '@ionic/vue';
+import { IonButtons, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar, IonCard, IonCardHeader, IonCardTitle, IonButton, IonCardContent, IonCardSubtitle, IonInfiniteScrollContent, IonInfiniteScroll, IonItem, IonList} from '@ionic/vue';
 import { reactive } from 'vue';
 
 let resultNum = 5;
