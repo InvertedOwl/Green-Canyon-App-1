@@ -15,11 +15,10 @@
             <ion-title size="large">Schedule</ion-title>
           </ion-toolbar>
         </ion-header>
+        <pinch-zoom>
+          <img :src=" APIENDPOINT + '/weekly'" style="width: 100% !important;">
+        </pinch-zoom>
 
-        <a class="ion-home color-primary item" href="#" onclick="window.open('http://192.168.0.4:3000/weekly', '_system', 'location=yes'); return false;">          
-          <img :src="APIENDPOINT + '/weekly'" alt="">
-        </a>
-        
       </ion-content>
     </ion-page>
   </template>
@@ -29,6 +28,8 @@
 import { IonButtons, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar, IonCard, IonCardHeader, IonCardTitle, IonButton } from '@ionic/vue';
 import { reactive } from 'vue';
 import { APIENDPOINT } from './constants';
+import PinchZoom from 'vue-pinch-zoom';
+
 
 
 </script>
