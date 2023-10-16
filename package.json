@@ -32,6 +32,7 @@
     "sequelize": "^6.29.2",
     "vue": "^3.2.21",
     "vue-iframes": "^0.0.20",
+    "vue-image-zoomer": "^2.2.3",
     "vue-markdown-render": "^2.0.1",
     "vue-pdf": "^4.3.0",
     "vue-pdf-embed": "^1.2.1",
