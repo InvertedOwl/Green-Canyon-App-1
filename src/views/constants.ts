@@ -1,1 +1,0 @@
-export const APIENDPOINT = "http://ec2-18-144-101-122.us-west-1.compute.amazonaws.com";

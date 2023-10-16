@@ -39,7 +39,7 @@
               </ion-card-content>
               
               <div id="voteButton">
-                <ion-button :href="'/poll?index=' + i" :disabled="p.disabled" id="vote" >{{ p.button }}</ion-button>
+                <ion-button :href="'/poll?index=' + p.id" :disabled="isDisabled(p)" id="vote" >{{ p.button }}</ion-button>
               </div>
             </ion-card>
           </div>
@@ -55,7 +55,7 @@
 import { IonButtons, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar, IonCard, IonCardHeader, IonCardTitle, IonButton, IonCardContent, IonCardSubtitle, IonInfiniteScrollContent, IonInfiniteScroll} from '@ionic/vue';
 import { reactive } from 'vue';
 import { Storage } from '@ionic/storage';
-import { APIENDPOINT } from './constants';
+import { APIENDPOINT, setCookie, getCookie } from './constants';
 
 const store = new Storage();
 // await store.create();
@@ -64,10 +64,21 @@ const store = new Storage();
 const polls = reactive([]);
 let off = 0;
 
+async function isDisabled (p) {
+  console.log(getCookie("answered"));
+  if (getCookie("answered") == null) {
+    setCookie("answered", []);
+    console.log("setting button " + p.disabled);
+    return p.disabled;
+  }
+  console.log(eval(p.disabled) || (getCookie("answered")).includes(p.id + ""));
+  return eval(p.disabled) || (getCookie("answered")).includes(p.id + "");
+}
+
 const getPolls = async () => {
 
   try {
-    const result =  (await (await fetch(APIENDPOINT + "/polls?max=10&offset=" + (off), {method: "GET"})).json()).data;
+    const result =  (await (await fetch(APIENDPOINT + "/polls?sortbytime=1&max=10&offset=" + (off), {method: "GET"})).json()).data;
     return result;
   } catch (e) {
     console.log(e);

@@ -16,41 +16,43 @@
           </ion-toolbar>
         </ion-header>
 
-        
-        <div v-for="index in polldata.polldata" :key="index">
-          <ion-card>
-            <ion-card-header>
-              <ion-card-title>{{ index.title }}</ion-card-title>
-            </ion-card-header>
+        <div ref="poll">
+          <div v-for="index in polldata.polldata" :key="index" class="questioncard">
+            <ion-card>
+              <ion-card-header>
+                <ion-card-title class="title">{{ index.title }}</ion-card-title>
+              </ion-card-header>
 
-            <ion-card-content>
-              <!-- <div v-if="index.type == 'text'">
-              </div> -->
+              <ion-card-content>
+                <!-- <div v-if="index.type == 'text'">
+                </div> -->
 
-              <div v-if="index.type == 'checkbox'">
-                <div v-for="choice in index.choices" :key="choice">
-                  <!-- <ion-checkbox :id="choice">{{ "  " + choice }}</ion-checkbox> -->
-                  <ion-item>
-                    <ion-label  style="position: relative; left: 5px;">{{choice}}</ion-label>
-                    <ion-checkbox label-placement="start"></ion-checkbox>
-                  </ion-item>
-                </div>
-              </div>
-
-              <div v-if="index.type == 'radio'">
-                <ion-radio-group value>
+                <div v-if="index.type == 'checkbox'" class="questioninput typecheckbox">
                   <div v-for="choice in index.choices" :key="choice">
+                    <!-- <ion-checkbox :id="choice">{{ "  " + choice }}</ion-checkbox> -->
                     <ion-item>
-                      <ion-radio slot="end" :value="choice"></ion-radio>
-                      <ion-label>{{choice}}</ion-label>
-
+                      <ion-label  style="position: relative; left: 5px;" class="label">{{choice}}</ion-label>
+                      <ion-checkbox label-placement="start" class="checkbox response"></ion-checkbox>
                     </ion-item>
                   </div>
-                </ion-radio-group>
-              </div>
-            </ion-card-content>
-          </ion-card>
+                </div>
+
+                <div v-if="index.type == 'radio'" class="questioninput typeradio">
+                  <ion-radio-group value>
+                    <div v-for="choice in index.choices" :key="choice">
+                      <ion-item>
+                        <ion-radio slot="end" :value="choice" class="radio response"></ion-radio>
+                        <ion-label class="label">{{choice}}</ion-label>
+
+                      </ion-item>
+                    </div>
+                  </ion-radio-group>
+                </div>
+              </ion-card-content>
+            </ion-card>
+          </div>
         </div>
+
 
         <ion-button style="position: relative; left: 50%; transform: translate(-50%);" @click="onSubmit">Submit Poll</ion-button>
 
@@ -61,12 +63,8 @@
 <script setup>
 const title = reactive({});
 const polldata = reactive({});
-import { APIENDPOINT } from './constants';
+import { APIENDPOINT, setCookie, getCookie } from './constants';
 import { Device } from '@capacitor/device';
-
-const onSubmit = async () => {
-  console.log( await Device.getId());
-}
 
 const qs = (function(a) {
   if (a == "") return {};
@@ -87,7 +85,7 @@ const t = qs["index"];
 
 const getIndexedPoll = async () => {
   try {
-    const result =  (await (await fetch(APIENDPOINT + "/polls?max=1&offset=" + t, {method: "GET"})).json()).data;
+    const result =  (await (await fetch(APIENDPOINT + "/polls?sortbytime=0&max=1&offset=" + t, {method: "GET"})).json()).data;
     return result[0];
   } catch (e) {
     console.log(e);
@@ -109,7 +107,86 @@ getIndexedPoll().then((result) => {
 import ArticleComp from './ArticleTemp.vue';
 
 import { IonButtons, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar, IonCard, IonCardHeader, IonCardTitle, IonButton, IonLabel, IonCheckbox, IonItem, IonRadio, IonRadioGroup, IonCardContent} from '@ionic/vue';
-  import { reactive } from 'vue';
+import { reactive } from 'vue';
+
+export default {
+  methods: {
+    async onSubmit() {
+      const deviceid = await Device.getId();
+
+      console.log(this.$refs)
+      const pollContainer = this.$refs.poll;
+      const questions = pollContainer.querySelectorAll('.questioncard');
+      console.log(questions);
+      const response = [];
+
+      // Loop over each questions
+      questions.forEach(element => {
+        console.log("TITLE: " + element.querySelectorAll(".title")[0].innerHTML);
+
+        const choices = [];
+
+        const options = element.querySelectorAll(".label") // Gets all options
+        const responses = element.querySelectorAll(".response") // gets all responses
+
+        // Loop over responses
+        for (let i = 0; i < options.length; i ++) {
+          if (responses[i].checked) {
+            choices.push(options[i].innerHTML);
+          }
+        }
+
+        response.push({"choices": choices});
+
+        });
+
+        console.log(response);
+
+
+        // Get index of poll
+        const qs = (function(a) {
+        if (a == "") return {};
+        const b = {};
+        for (let i = 0; i < a.length; ++i)
+        {
+            const p=a[i].split('=', 2);
+            if (p.length == 1)
+                b[p[0]] = "";
+            else
+                b[p[0]] = decodeURIComponent(p[1].replace(/\+/g, " "));
+        }
+        return b;
+      })(window.location.search.substr(1).split('&'));
+
+
+      const t = qs["index"];
+
+      fetch(APIENDPOINT + "/poll", {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          pollid: t,
+          deviceid: deviceid.identifier,
+          response: response
+        })
+      }).then(() => {
+        if (getCookie("answered") == null) {
+          setCookie("answered", JSON.stringify([
+            t
+          ]));
+        } else {
+          const get = getCookie("answered");
+          console.log(get);
+          get.push(t);
+          setCookie("answered", get)
+        }
+        window.location.href = "/polls";
+      });
+    }
+  }
+}
 
 </script>
 
