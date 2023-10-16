@@ -38,8 +38,8 @@
                 
               </ion-card-content>
               
-              <div id="voteButton">
-                <ion-button :href="'/poll?index=' + p.id" :disabled="isDisabled(p)" id="vote" >{{ p.button }}</ion-button>
+              <div class="voteButton">
+                <ion-button :href="'/poll?index=' + p.id" :disabled="isDisabled(p)" class="vote" >{{ p.button }}</ion-button>
               </div>
             </ion-card>
           </div>
@@ -57,14 +57,19 @@ import { reactive } from 'vue';
 import { Storage } from '@ionic/storage';
 import { APIENDPOINT, setCookie, getCookie } from './constants';
 
-const store = new Storage();
-// await store.create();
-
 
 const polls = reactive([]);
 let off = 0;
 
-async function isDisabled (p) {
+async function delayedFalse() {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve(false);
+    }, 1000); // 1000 milliseconds = 1 second
+  });
+}
+
+function isDisabled (p) {
   console.log(getCookie("answered"));
   if (getCookie("answered") == null) {
     setCookie("answered", []);

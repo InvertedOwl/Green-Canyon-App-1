@@ -172,15 +172,15 @@ export default {
           response: response
         })
       }).then(() => {
-        if (getCookie("answered") == null) {
+        if (getCookie("answered") == null || getCookie("answered") == "") {
           setCookie("answered", JSON.stringify([
             t
           ]));
         } else {
-          const get = getCookie("answered");
+          const get = JSON.parse(getCookie("answered"));
           console.log(get);
           get.push(t);
-          setCookie("answered", get)
+          setCookie("answered", JSON.stringify(get));
         }
         window.location.href = "/polls";
       });
