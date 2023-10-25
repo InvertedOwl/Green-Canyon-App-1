@@ -24,12 +24,13 @@ import '@ionic/vue/css/display.css';
 import './theme/variables.css';
 
 
-
 const app = createApp(App)
   .use(IonicVue, {
     mode: 'md' // Force Material Design style
   })
   .use(router);
+
+
 
 router.isReady().then(() => {
   app.mount('#app');

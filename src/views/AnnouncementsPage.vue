@@ -23,25 +23,25 @@
       </ion-card>
       <div id="cards">
           <ion-card v-for="(item, index) in announcements" :key="index">
-              <img style="height: 200px;" alt="announcement image" :src=" item.imglink" />
-              <ion-card-header>
-                  <ion-card-title> {{ item.title }} </ion-card-title>
-                  <ion-card-subtitle> {{ getDate(item.timestamp) }}</ion-card-subtitle>
-              </ion-card-header>
+            <img style="height: 200px;" alt="announcement image" :src=" item.imglink" />
+            <ion-card-header>
+                <ion-card-title> {{ item.title }} </ion-card-title>
+                <ion-card-subtitle> {{ getDate(item.timestamp) }}</ion-card-subtitle>
+            </ion-card-header>
 
-              <ion-card-content>
-                <p>
-                  {{ item.descr}}
-                </p>
-              </ion-card-content>
-              <div id="learnButton">
-                <ion-button id="learn" :href="'/article?index=' + index">Learn More</ion-button>
-              </div>
-          </ion-card>
-          <ion-infinite-scroll @ionInfinite="ionInfinite">
-            <ion-infinite-scroll-content></ion-infinite-scroll-content>
-          </ion-infinite-scroll>
-        </div>
+            <ion-card-content>
+              <p>
+                {{ item.descr}}
+              </p>
+            </ion-card-content>
+            <div id="learnButton">
+              <ion-button id="learn" :href="'/article?index=' + index">Learn More</ion-button>
+            </div>
+        </ion-card>
+        <ion-infinite-scroll @ionInfinite="ionInfinite">
+          <ion-infinite-scroll-content></ion-infinite-scroll-content>
+        </ion-infinite-scroll>
+      </div>
 
     </ion-content>
   </ion-page>
@@ -139,18 +139,13 @@ const getDate = (d) => {
     right: 0;
     top: 65px;
   }
-  #learn {
-  }
+  
   #learnButton {
     width: 100%;
     display: flex;
     justify-content: center;
   }
-  
-  #cards {
-  
-  }
-  
+
   #container strong {
     font-size: 20px;
     line-height: 26px;

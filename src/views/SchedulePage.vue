@@ -14,11 +14,13 @@
           <ion-toolbar>
             <ion-title size="large">Schedule</ion-title>
           </ion-toolbar>
-        </ion-header>
-        <pinch-zoom>
-          <img :src=" APIENDPOINT + '/weekly'" style="width: 100% !important;">
-        </pinch-zoom>
+        </ion-header>        
+        
 
+        <img :src=" APIENDPOINT + '/weekly'" style="width: 100% !important;">
+        <a :href=" APIENDPOINT + '/weekly'" style="color: white;">
+          Click here for full image
+        </a>
       </ion-content>
     </ion-page>
   </template>
@@ -28,17 +30,13 @@
 import { IonButtons, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar, IonCard, IonCardHeader, IonCardTitle, IonButton } from '@ionic/vue';
 import { reactive } from 'vue';
 import { APIENDPOINT } from './constants';
-import PinchZoom from 'vue-pinch-zoom';
-
-
 
 </script>
 
 
 <script>
-export default {
 
-  
+export default {
   data() {
     
     return {
@@ -46,6 +44,7 @@ export default {
       windowHeight: window.innerWidth / 1.77777
     }
   },
+
   mounted() {
     window.addEventListener('resize', this.handleResize)
   },
@@ -53,6 +52,10 @@ export default {
     window.removeEventListener('resize', this.handleResize)
   },
   methods: {
+    onPinch(event) {
+      this.scale = event.scale;
+      this.transform = `scale(${this.scale})`;
+    },
     handleResize() {
       this.windowWidth = window.innerWidth;
       this.windowHeight = window.innerWidth / 1.77777;

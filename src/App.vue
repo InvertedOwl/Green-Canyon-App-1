@@ -71,7 +71,7 @@ const appPages = [
     mdIcon: megaphoneSharp,
   },
   {
-    title: 'WolfDen Productions',
+    title: 'GCTV',
     url: '/gctv',
     iosIcon: tvSharp,
     mdIcon: tvSharp,

@@ -85,7 +85,7 @@ const t = qs["index"];
 
 const getIndexedPoll = async () => {
   try {
-    const result =  (await (await fetch(APIENDPOINT + "/polls?sortbytime=0&max=1&offset=" + t, {method: "GET"})).json()).data;
+    const result =  (await (await fetch(APIENDPOINT + "/polls?sortbytime=0&max=1&offset=" + (t-1), {method: "GET"})).json()).data;
     return result[0];
   } catch (e) {
     console.log(e);
@@ -96,8 +96,9 @@ const getIndexedPoll = async () => {
 
 
 getIndexedPoll().then((result) => {
+  const jsonData = JSON.parse(JSON.parse(result.polldata));
   title.title = result.title;
-  polldata.polldata = JSON.parse(result.polldata).poll
+  polldata.polldata = jsonData.poll
 });
 
 
