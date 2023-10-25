@@ -41,7 +41,7 @@
               <p>
                 {{ shorten(item.descr) }}
               </p>
-              <ion-button :href="'/article?index=' + index">Learn More</ion-button>
+              <ion-button :href="'/article?index=' + item.id">Learn More</ion-button>
 
             </ion-card-content>
 
@@ -205,7 +205,7 @@ function shorten(str) {
     float: left;
     height: 500px;
     width: 50%;
-    max-height: 150px;
+    max-height: 177px;
     object-fit: cover;
   }
   .infocontent {

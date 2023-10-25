@@ -35,7 +35,7 @@
               </p>
             </ion-card-content>
             <div id="learnButton">
-              <ion-button id="learn" :href="'/article?index=' + index">Learn More</ion-button>
+              <ion-button id="learn" :href="'/article?index=' + item.id">Learn More</ion-button>
             </div>
         </ion-card>
         <ion-infinite-scroll @ionInfinite="ionInfinite">

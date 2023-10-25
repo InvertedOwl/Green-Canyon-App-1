@@ -39,7 +39,7 @@
               </ion-card-content>
               
               <div class="voteButton">
-                <ion-button :href="'/poll?index=' + p.id" :disabled="isDisabled(p)" class="vote" >{{ p.button }}</ion-button>
+                <ion-button :href="'/poll?index=' + (p.id)" :disabled="isDisabled(p)" class="vote" >{{ p.button }}</ion-button>
               </div>
             </ion-card>
           </div>

@@ -28,7 +28,7 @@
         <ion-card>
           <ion-card-content>
             <div class="setting-container">
-              <ion-toggle class="setting-toggle"></ion-toggle>
+              <ion-toggle v-model="pushValue" @click="handlePushChange" class="setting-toggle"></ion-toggle>
               <ion-label class="setting-label">
                 <strong>Push Notifications</strong>
               </ion-label>
@@ -37,21 +37,21 @@
             <hr>
 
             <div class="setting-container">
-              <ion-toggle class="setting-toggle"></ion-toggle>
+              <ion-toggle v-model="gameValue" @click="handleGameChange" class="setting-toggle"></ion-toggle>
               <ion-label class="setting-label smaller">
                 <strong>Game Notifications</strong>
               </ion-label>
             </div>
 
             <div class="setting-container">
-              <ion-toggle class="setting-toggle"></ion-toggle>
+              <ion-toggle v-model="scheduleValue" @click="handleScheduleChange" class="setting-toggle"></ion-toggle>
               <ion-label class="setting-label smaller">
                 <strong>Schedule Change Notifications</strong>
               </ion-label>
             </div>
 
             <div class="setting-container">
-              <ion-toggle class="setting-toggle"></ion-toggle>
+              <ion-toggle v-model="eventValue" @click="handleEventChange" class="setting-toggle"></ion-toggle>
               <ion-label class="setting-label smaller">
                 <strong>Event Notifications</strong>
               </ion-label>
@@ -66,10 +66,9 @@
   
 <script setup>
 
-import { IonButtons, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar, IonCard, IonCardHeader, IonCardTitle, IonButton, IonToggle} from '@ionic/vue';
+import { IonButtons, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar, IonCard, IonCardHeader, IonCardTitle, IonButton, IonToggle, IonCardContent, IonLabel} from '@ionic/vue';
 import { reactive } from 'vue';
-import { APIENDPOINT } from './constants';
-
+import { APIENDPOINT, getCookie, setCookie } from './constants';
 
 </script>
 
@@ -81,12 +80,33 @@ export default {
   data() {
     
     return {
+      pushValue: false,
+      gameValue: false,
+      scheduleValue: false,
+      eventValue: false,
       windowWidth: window.innerWidth,
       windowHeight: window.innerWidth / 1.77777
     }
   },
   mounted() {
-    window.addEventListener('resize', this.handleResize)
+    window.addEventListener('resize', this.handleResize);
+    if (getCookie("notifications-push") == null) {
+      setCookie("notifications-push", false);
+    }
+    if (getCookie("notifications-game") == null) {
+      setCookie("notifications-game", false);
+    }
+    if (getCookie("notifications-schedule") == null) {
+      setCookie("notifications-schedule", false);
+    }
+    if (getCookie("notifications-event") == null) {
+      setCookie("notifications-event", false);
+    }
+
+    this.pushValue = getCookie("notifications-push") == "true";
+    this.gameValue = getCookie("notifications-game") == "true";
+    this.scheduleValue = getCookie("notifications-schedule") == "true";
+    this.eventValue = getCookie("notifications-event") == "true";
   },
   beforeUnmount() {
     window.removeEventListener('resize', this.handleResize)
@@ -95,6 +115,45 @@ export default {
     handleResize() {
       this.windowWidth = window.innerWidth;
       this.windowHeight = window.innerWidth / 1.77777;
+    },
+    handlePushChange() {
+      if (this.pushValue == true) {
+        this.gameValue = false;
+        this.scheduleValue = false;
+        this.eventValue = false;
+        setCookie("notifications-game", false);
+        setCookie("notifications-schedule", false);
+        setCookie("notifications-event", false);
+      }
+      if (this.pushValue == false) {
+        if (this.gameValue == false && this.scheduleValue == false && this.eventValue == false) {
+          this.gameValue = true;
+          this.scheduleValue = true;
+          this.eventValue = true;
+        }
+      }
+      setCookie("notifications-push", this.pushValue);
+    },
+    handleGameChange() {
+      if (this.pushValue == false) {
+        this.pushValue = true;
+        setCookie("notifications-push", true);
+      }
+      setCookie("notifications-game", this.gameValue);
+    },
+    handleScheduleChange() {
+      if (this.pushValue == false) {
+        this.pushValue = true;
+        setCookie("notifications-push", true);
+      }
+      setCookie("notifications-schedule", this.scheduleValue);
+    },
+    handleEventChange() {
+      if (this.pushValue == false) {
+        this.pushValue = true;
+        setCookie("notifications-push", true);
+      }
+      setCookie("notifications-event", this.eventValue);
     }
   }
 }
@@ -154,7 +213,7 @@ ion-card {
 
 .setting-label {
   float: right;
-  width: 100%;
+  width: 80%;
   padding-top: 4px;
   font-size: 20px;
 }
