@@ -23,25 +23,7 @@
         </ion-card>
         <div id="cards">
           <div v-for="(p, i) in polls" :key="i">
-
-            <ion-card>
-              <img v-if="p.image != null && p.image != ''" style="height: 200px;" alt="announcement image" :src="p.image">
-              <ion-card-header>
-                <ion-card-title> {{ p.title }} </ion-card-title>
-                <ion-card-subtitle> {{ getDate(p.timestamp) }}</ion-card-subtitle>
-              </ion-card-header>
-
-              <ion-card-content>
-                <p>
-                  {{ p.desc }}
-                </p>
-                
-              </ion-card-content>
-              
-              <div class="voteButton">
-                <ion-button :href="'/poll?index=' + (p.id)" :disabled="isDisabled(p)" class="vote" >{{ p.button }}</ion-button>
-              </div>
-            </ion-card>
+            <PollCard :p="p"></PollCard>  
           </div>
           <ion-infinite-scroll @ionInfinite="ionInfinite">
             <ion-infinite-scroll-content></ion-infinite-scroll-content>
@@ -55,7 +37,8 @@
 import { IonButtons, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar, IonCard, IonCardHeader, IonCardTitle, IonButton, IonCardContent, IonCardSubtitle, IonInfiniteScrollContent, IonInfiniteScroll} from '@ionic/vue';
 import { reactive } from 'vue';
 import { Storage } from '@ionic/storage';
-import { APIENDPOINT, setCookie, getCookie } from './constants';
+import { APIENDPOINT, setCookie, getCookie, getDate } from '../constants';
+import PollCard from '../components/PollCard.vue';
 
 
 const polls = reactive([]);
@@ -69,17 +52,6 @@ async function delayedFalse() {
   });
 }
 
-function isDisabled (p) {
-  console.log(getCookie("answered"));
-  if (getCookie("answered") == null) {
-    setCookie("answered", []);
-    console.log("setting button " + p.disabled);
-    return p.disabled;
-  }
-  console.log(eval(p.disabled) || (getCookie("answered")).includes(p.id + ""));
-  return eval(p.disabled) || (getCookie("answered")).includes(p.id + "");
-}
-
 const getPolls = async () => {
 
   try {
@@ -91,24 +63,12 @@ const getPolls = async () => {
   return [];
 };
 
-const getDate = (d) => {
-  const timestamp = d * 1000;
-  const date = new Date(timestamp);
-  const month = String(date.getMonth() + 1).padStart(2, '0');
-  const day = String(date.getDate()).padStart(2, '0');
-  const year = date.getFullYear();
-  return `${month}/${day}/${year}`;
-}
-
-
-
 const ionInfinite = (ev) => {
   off += 10;
   getPolls().then((result) => {
     if (result.length == 0) {
       return;
     }
-    console.log(result);
     result.forEach(element => {
       polls.push(element);
     });

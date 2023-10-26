@@ -22,22 +22,13 @@
         </ion-card-content>
       </ion-card>
       <div id="cards">
-          <ion-card v-for="(item, index) in announcements" :key="index">
-            <img style="height: 200px;" alt="announcement image" :src=" item.imglink" />
-            <ion-card-header>
-                <ion-card-title> {{ item.title }} </ion-card-title>
-                <ion-card-subtitle> {{ getDate(item.timestamp) }}</ion-card-subtitle>
-            </ion-card-header>
+ 
+        <div v-for="(item, index) in announcements" :key="index">
+          <AnnouncementsCard :item="item">
 
-            <ion-card-content>
-              <p>
-                {{ item.descr}}
-              </p>
-            </ion-card-content>
-            <div id="learnButton">
-              <ion-button id="learn" :href="'/article?index=' + item.id">Learn More</ion-button>
-            </div>
-        </ion-card>
+          </AnnouncementsCard> 
+        </div>
+
         <ion-infinite-scroll @ionInfinite="ionInfinite">
           <ion-infinite-scroll-content></ion-infinite-scroll-content>
         </ion-infinite-scroll>
@@ -50,7 +41,8 @@
 <script setup>
   import { IonButtons, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar, IonCard, IonCardHeader, IonCardTitle, IonButton, IonCardContent, IonCardSubtitle, IonInfiniteScrollContent, IonInfiniteScroll} from '@ionic/vue';
   import { reactive } from 'vue';
-  import { APIENDPOINT } from './constants';
+  import { APIENDPOINT } from '../constants';
+  import AnnouncementsCard from '../components/AnnouncementCard.vue';
 
   const announcements = reactive([]); 
   let off = 0;
@@ -70,6 +62,7 @@ const getNewAnn = async () => {
 
 const ionInfinite = (ev) => {
   off += 10;
+  console.log("Ion");
   getNewAnn().then((result) => {
     if (result.length == 0) {
       return;
@@ -87,14 +80,6 @@ getNewAnn().then((result) => {
   announcements.splice(0, announcements.length, ...result);
 });
 
-const getDate = (d) => {
-  const timestamp = d * 1000;
-  const date = new Date(timestamp);
-  const month = String(date.getMonth() + 1).padStart(2, '0');
-  const day = String(date.getDate()).padStart(2, '0');
-  const year = date.getFullYear();
-  return `${month}/${day}/${year}`;
-}
   
 </script>
   

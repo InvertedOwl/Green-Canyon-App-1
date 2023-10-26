@@ -29,7 +29,13 @@
           </ion-card-header>
         </ion-card>
         <div id="cards">
-          <ion-card v-for="(item, index) in announcements" :key="index" class="infocontent">
+
+          <div v-for="(item, index) in announcements" :key="index">
+            <AnnouncementsCard :item="item" slim="true">
+
+            </AnnouncementsCard> 
+          </div>
+          <!-- <ion-card v-for="(item, index) in announcements" :key="index" class="infocontent">
             <img alt="announcement image" :src=" item.imglink" class="cardimg" />
 
             <ion-card-header class="cardheader">
@@ -45,7 +51,7 @@
 
             </ion-card-content>
 
-        </ion-card>
+        </ion-card> -->
       </div>
         </div>
 
@@ -81,8 +87,9 @@
   
 <script setup>
 import { IonButtons, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar, IonCard, IonCardHeader, IonCardTitle, IonButton, IonCardContent, IonCardSubtitle, IonInfiniteScrollContent, IonInfiniteScroll, IonInfinite} from '@ionic/vue';
-import { APIENDPOINT, setCookie, getCookie } from './constants';
+import { APIENDPOINT, setCookie, getCookie, getDate, shorten } from '../constants';
 import { reactive } from 'vue';
+import AnnouncementsCard from '../components/AnnouncementCard.vue';
 
 const announcements = reactive([]); 
 const polls = reactive([]); 
@@ -91,10 +98,8 @@ const polls = reactive([]);
 
 const getNewAnn = async () => {
   const endpoint = APIENDPOINT + "/announcements?max=3&offset=0";
-  console.log(endpoint);
   try {
     const result =  (await (await fetch(endpoint, {method: "GET"})).json()).data;
-    console.log(result);
     return result;
   } catch (e) {
     console.log(e);
@@ -122,28 +127,12 @@ getPolls().then((result) => {
 })
 
 
-const getDate = (d) => {
-  const timestamp = d * 1000;
-  const date = new Date(timestamp);
-  const month = String(date.getMonth() + 1).padStart(2, '0');
-  const day = String(date.getDate()).padStart(2, '0');
-  const year = date.getFullYear();
-  return `${month}/${day}/${year}`;
-}
-
 function isDisabled (p) {
-  console.log(getCookie("answered"));
   if (getCookie("answered") == null) {
     setCookie("answered", []);
-    console.log("setting button " + p.disabled);
     return p.disabled;
   }
-  console.log(eval(p.disabled) || (getCookie("answered")).includes(p.id + ""));
   return eval(p.disabled) || (getCookie("answered")).includes(p.id + "");
-}
-
-function shorten(str) {
-  return str.length > 35 ? str.substring(0, 35) + '...' : str;
 }
 
 </script>

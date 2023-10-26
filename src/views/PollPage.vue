@@ -63,7 +63,7 @@
 <script setup>
 const title = reactive({});
 const polldata = reactive({});
-import { APIENDPOINT, setCookie, getCookie } from './constants';
+import { APIENDPOINT, setCookie, getCookie } from '../constants';
 import { Device } from '@capacitor/device';
 
 const qs = (function(a) {
@@ -96,7 +96,6 @@ const getIndexedPoll = async () => {
 
 
 getIndexedPoll().then((result) => {
-  console.log(result);
   const jsonData = JSON.parse(JSON.parse(result.polldata));
   title.title = result.title;
   polldata.polldata = jsonData.poll
@@ -106,7 +105,7 @@ getIndexedPoll().then((result) => {
 </script>
 
   <script>
-import ArticleComp from './ArticleTemp.vue';
+import ArticleComp from '../components/ArticleComponent.vue';
 
 import { IonButtons, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar, IonCard, IonCardHeader, IonCardTitle, IonButton, IonLabel, IonCheckbox, IonItem, IonRadio, IonRadioGroup, IonCardContent} from '@ionic/vue';
 import { reactive } from 'vue';
@@ -116,15 +115,12 @@ export default {
     async onSubmit() {
       const deviceid = await Device.getId();
 
-      console.log(this.$refs)
       const pollContainer = this.$refs.poll;
       const questions = pollContainer.querySelectorAll('.questioncard');
-      console.log(questions);
       const response = [];
 
       // Loop over each questions
       questions.forEach(element => {
-        console.log("TITLE: " + element.querySelectorAll(".title")[0].innerHTML);
 
         const choices = [];
 
@@ -142,7 +138,6 @@ export default {
 
         });
 
-        console.log(response);
 
 
         // Get index of poll
@@ -180,7 +175,6 @@ export default {
           ]));
         } else {
           const get = JSON.parse(getCookie("answered"));
-          console.log(get);
           get.push(t);
           setCookie("answered", JSON.stringify(get));
         }

@@ -68,7 +68,7 @@
 
 import { IonButtons, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar, IonCard, IonCardHeader, IonCardTitle, IonButton, IonToggle, IonCardContent, IonLabel} from '@ionic/vue';
 import { reactive } from 'vue';
-import { APIENDPOINT, getCookie, setCookie } from './constants';
+import { APIENDPOINT, getCookie, setCookie } from '../constants';
 
 </script>
 

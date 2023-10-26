@@ -28,7 +28,7 @@
   const article = reactive({});
   const img = reactive({});
   const announcements = reactive([]); 
-  import { APIENDPOINT } from './constants';
+  import { APIENDPOINT } from '../constants';
 
   const qs = (function(a) {
     if (a == "") return {};
@@ -69,7 +69,7 @@ getIndexedAnn().then((result) => {
 </script>
 
 <script>
-import ArticleComp from './ArticleTemp.vue';
+import ArticleComp from '../components/ArticleComponent.vue';
 
 import { IonButtons, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar, IonCard, IonCardHeader, IonCardTitle, IonButton  } from '@ionic/vue';
 import { reactive } from 'vue';
