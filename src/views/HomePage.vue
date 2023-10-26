@@ -31,27 +31,8 @@
         <div id="cards">
 
           <div v-for="(item, index) in announcements" :key="index">
-            <AnnouncementsCard :item="item" slim="true">
-
-            </AnnouncementsCard> 
+            <AnnouncementsCard :item="item" slim="true"></AnnouncementsCard> 
           </div>
-          <!-- <ion-card v-for="(item, index) in announcements" :key="index" class="infocontent">
-            <img alt="announcement image" :src=" item.imglink" class="cardimg" />
-
-            <ion-card-header class="cardheader">
-                <ion-card-title> {{ item.title }} </ion-card-title>
-                <ion-card-subtitle> {{ getDate(item.timestamp) }}</ion-card-subtitle>
-            </ion-card-header>
-
-            <ion-card-content class="cardcontent">
-              <p>
-                {{ shorten(item.descr) }}
-              </p>
-              <ion-button :href="'/article?index=' + item.id">Learn More</ion-button>
-
-            </ion-card-content>
-
-        </ion-card> -->
       </div>
         </div>
 

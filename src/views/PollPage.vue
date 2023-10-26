@@ -19,17 +19,16 @@
         <div ref="poll">
           <div v-for="index in polldata.polldata" :key="index" class="questioncard">
             <ion-card>
-              <ion-card-header>
-                <ion-card-title class="title">{{ index.title }}</ion-card-title>
+              <ion-card-header>                  
+                  <ion-card-title class="title">
+                    <span style="color: red; font-size: 30px;" v-if="index.required">* </span>
+                    {{ index.title }}
+                  </ion-card-title>
               </ion-card-header>
 
               <ion-card-content>
-                <!-- <div v-if="index.type == 'text'">
-                </div> -->
-
                 <div v-if="index.type == 'checkbox'" class="questioninput typecheckbox">
                   <div v-for="choice in index.choices" :key="choice">
-                    <!-- <ion-checkbox :id="choice">{{ "  " + choice }}</ion-checkbox> -->
                     <ion-item>
                       <ion-label  style="position: relative; left: 5px;" class="label">{{choice}}</ion-label>
                       <ion-checkbox label-placement="start" class="checkbox response"></ion-checkbox>
@@ -126,6 +125,7 @@ export default {
 
         const options = element.querySelectorAll(".label") // Gets all options
         const responses = element.querySelectorAll(".response") // gets all responses
+        // const 
 
         // Loop over responses
         for (let i = 0; i < options.length; i ++) {
@@ -133,6 +133,8 @@ export default {
             choices.push(options[i].innerHTML);
           }
         }
+        // if (choices.length == 0 && )
+        // TODO: Make required questions *actually* required
 
         response.push({"choices": choices});
 
