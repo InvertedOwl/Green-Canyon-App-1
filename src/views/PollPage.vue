@@ -21,8 +21,10 @@
             <ion-card>
               <ion-card-header>                  
                   <ion-card-title class="title">
-                    <span style="color: red; font-size: 30px;" v-if="index.required">* </span>
-                    {{ index.title }}
+                    <span style="color: red; font-size: 30px;" v-if="index.required" class="required">* </span>
+                    <h1 class="title">
+                      {{ index.title }}
+                    </h1>
                   </ion-card-title>
               </ion-card-header>
 
@@ -106,17 +108,28 @@ getIndexedPoll().then((result) => {
   <script>
 import ArticleComp from '../components/ArticleComponent.vue';
 
-import { IonButtons, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar, IonCard, IonCardHeader, IonCardTitle, IonButton, IonLabel, IonCheckbox, IonItem, IonRadio, IonRadioGroup, IonCardContent} from '@ionic/vue';
+import { toastController, IonButtons, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar, IonCard, IonCardHeader, IonCardTitle, IonButton, IonLabel, IonCheckbox, IonItem, IonRadio, IonRadioGroup, IonCardContent} from '@ionic/vue';
 import { reactive } from 'vue';
 
 export default {
   methods: {
+    async presentToast(position) {
+        const toast = await toastController.create({
+          message: 'You have not answered all required questions',
+          duration: 3000,
+          position: position,
+        });
+
+        await toast.present();
+      },
     async onSubmit() {
       const deviceid = await Device.getId();
 
       const pollContainer = this.$refs.poll;
       const questions = pollContainer.querySelectorAll('.questioncard');
       const response = [];
+
+      let ret = false;
 
       // Loop over each questions
       questions.forEach(element => {
@@ -125,6 +138,8 @@ export default {
 
         const options = element.querySelectorAll(".label") // Gets all options
         const responses = element.querySelectorAll(".response") // gets all responses
+        const title = element.querySelectorAll(".title") // gets all responses
+        const required = element.querySelectorAll(".required") // gets all responses
         // const 
 
         // Loop over responses
@@ -133,7 +148,11 @@ export default {
             choices.push(options[i].innerHTML);
           }
         }
-        // if (choices.length == 0 && )
+        if (choices.length == 0 && required.length > 0) {
+          this.presentToast("bottom");
+          ret = true;
+          return;
+        }
         // TODO: Make required questions *actually* required
 
         response.push({"choices": choices});
@@ -156,7 +175,9 @@ export default {
         }
         return b;
       })(window.location.search.substr(1).split('&'));
-
+      if (ret == true) {
+        return;
+      }
 
       const t = qs["index"];
 
@@ -189,6 +210,16 @@ export default {
 </script>
 
 <style>
+  h1 {
+    text-align: center;
+  }
+  ion-toast {
+    --background: #ececec;
+    --color: #616161;
+    font-size: 18px;
+    --border-radius: 30px;
+    text-align: center;
+  }
 
 </style>
   
