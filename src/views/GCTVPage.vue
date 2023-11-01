@@ -44,7 +44,7 @@
 
 <script setup>
 import { IonButtons, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar, IonCard, IonCardHeader, IonCardTitle, IonButton, IonCardContent, IonCardSubtitle, IonInfiniteScrollContent, IonInfiniteScroll, IonItem, IonList} from '@ionic/vue';
-import { reactive } from 'vue';
+import { ref } from 'vue';
 import { APIENDPOINT } from '../constants';
 let resultNum = 0;
 const getNewVideos = async () => {
@@ -59,14 +59,15 @@ const getNewVideos = async () => {
 const videoUrl = (videoId) => {
   return `https://www.youtube.com/embed/${videoId}`;
 }
-const items = reactive([]);
+const items = ref([]);
 getNewVideos().then((result) => {
-  items.splice(0, items.length, ...result);
+  console.log(result + ', ' + items.value);
+  items.value = items.value.concat(result);
 });
 const ionInfinite = (ev) => {
   resultNum += 5;
   getNewVideos().then((result) => {
-    items.splice(0, items.length, ...result);
+    items.value = items.value.concat(result);
     setTimeout(() => ev.target.complete(), 500);
   });
 };
