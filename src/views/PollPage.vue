@@ -49,6 +49,21 @@
                     </div>
                   </ion-radio-group>
                 </div>
+
+                <div v-if="index.type == 'short'" class="questioninput typeshort">
+                  <ion-item>
+                    <ion-input class="input response" :placeholder="index.placeholder" maxlength="80"> </ion-input>
+                  </ion-item>
+                </div>
+
+                <div v-if="index.type == 'long'" class="questioninput typelong">
+                  <ion-item>
+                    <ion-textarea
+                      :auto-grow="true"
+                      class="input response" :placeholder="index.placeholder" maxlength="300">
+                    </ion-textarea>
+                  </ion-item>
+                </div>
               </ion-card-content>
             </ion-card>
           </div>
@@ -108,7 +123,7 @@ getIndexedPoll().then((result) => {
   <script>
 import ArticleComp from '../components/ArticleComponent.vue';
 
-import { toastController, IonButtons, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar, IonCard, IonCardHeader, IonCardTitle, IonButton, IonLabel, IonCheckbox, IonItem, IonRadio, IonRadioGroup, IonCardContent} from '@ionic/vue';
+import { toastController, IonButtons, IonContent, IonHeader, IonMenuButton, IonInput, IonTextarea, IonPage, IonTitle, IonToolbar, IonCard, IonCardHeader, IonCardTitle, IonButton, IonLabel, IonCheckbox, IonItem, IonRadio, IonRadioGroup, IonCardContent} from '@ionic/vue';
 import { reactive } from 'vue';
 
 export default {
@@ -134,6 +149,8 @@ export default {
       // Loop over each questions
       questions.forEach(element => {
 
+        console.log(element.classList);
+
         const choices = [];
 
         const options = element.querySelectorAll(".label") // Gets all options
@@ -143,9 +160,13 @@ export default {
         // const 
 
         // Loop over responses
-        for (let i = 0; i < options.length; i ++) {
+        for (let i = 0; i < responses.length; i ++) {
           if (responses[i].checked) {
             choices.push(options[i].innerHTML);
+            continue;
+          }
+          if (responses[i].value) {
+            choices.push(responses[i].value);
           }
         }
         if (choices.length == 0 && required.length > 0) {
@@ -201,7 +222,7 @@ export default {
           get.push(t);
           setCookie("answered", JSON.stringify(get));
         }
-        window.location.href = "/polls";
+        // window.location.href = "/polls";
       });
     }
   }
