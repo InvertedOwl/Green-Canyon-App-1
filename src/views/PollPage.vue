@@ -222,7 +222,7 @@ export default {
           get.push(t);
           setCookie("answered", JSON.stringify(get));
         }
-        // window.location.href = "/polls";
+        window.location.href = "/polls";
       });
     }
   }
