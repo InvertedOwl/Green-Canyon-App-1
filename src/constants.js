@@ -1,4 +1,4 @@
-export const APIENDPOINT = "http://ec2-13-52-163-253.us-west-1.compute.amazonaws.com/api"; // "http://localhost"; 
+export const APIENDPOINT = "http://ec2-54-193-22-54.us-west-1.compute.amazonaws.com/api"; // "http://localhost"; 
 
 // Set a cookie without expiration
 export function setCookie(name, value) {
