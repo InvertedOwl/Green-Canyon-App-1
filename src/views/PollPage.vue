@@ -29,7 +29,7 @@
               </ion-card-header>
 
               <ion-card-content>
-                <div v-if="index.type == 'checkbox'" class="questioninput typecheckbox">
+                <div v-if="index.type == 'checkbox'" class="questioninput typecheckbox ">
                   <div v-for="choice in index.choices" :key="choice">
                     <ion-item>
                       <ion-label  style="position: relative; left: 5px;" class="label">{{choice}}</ion-label>
@@ -39,10 +39,10 @@
                 </div>
 
                 <div v-if="index.type == 'radio'" class="questioninput typeradio">
-                  <ion-radio-group value>
+                  <ion-radio-group class="response">
                     <div v-for="choice in index.choices" :key="choice">
                       <ion-item>
-                        <ion-radio slot="end" :value="choice" class="radio response"></ion-radio>
+                        <ion-radio slot="end" :value="choice" class="radio"></ion-radio>
                         <ion-label class="label">{{choice}}</ion-label>
 
                       </ion-item>
@@ -161,11 +161,12 @@ export default {
 
         // Loop over responses
         for (let i = 0; i < responses.length; i ++) {
-          if (responses[i].checked) {
+
+          if (responses[i].checked && responses[i].tagName.toLowerCase() == 'ion-checkbox') {
             choices.push(options[i].innerHTML);
             continue;
           }
-          if (responses[i].value) {
+          if (responses[i].value && responses[i].tagName.toLowerCase() != 'ion-checkbox') {
             choices.push(responses[i].value);
           }
         }
@@ -222,7 +223,7 @@ export default {
           get.push(t);
           setCookie("answered", JSON.stringify(get));
         }
-        window.location.href = "/polls";
+        // window.location.href = "/polls";
       });
     }
   }
