@@ -20,7 +20,7 @@
         <img :src=" APIENDPOINT + '/weekly0'" style="width: 100% !important;">
 
         <div class="fullimage">
-          <a :href=" APIENDPOINT + '/weekly'" style="width: 100%; text-align: center; display: block;">
+          <a :href="'https://www.ccsdut.org/Page/5376'" style="width: 100%; text-align: center; display: block;">
             <strong>Click here for full image</strong>
           </a>
         </div>
