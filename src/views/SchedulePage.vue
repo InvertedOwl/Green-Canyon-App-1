@@ -17,6 +17,7 @@
         </ion-header>        
         
         <img :src=" APIENDPOINT + '/weekly'" style="width: 100% !important;">
+        <img :src=" APIENDPOINT + '/weekly0'" style="width: 100% !important;">
 
         <div class="fullimage">
           <a :href=" APIENDPOINT + '/weekly'" style="width: 100%; text-align: center; display: block;">
