@@ -17,7 +17,7 @@
         </ion-header>
 
         <ion-card>
-          <img class="header" src="https://www.ccsdut.org/cms/lib/UT02205719/Centricity/Domain/694/GreenCanyonWolves%20with%20Wolf%20Graphic.png" style="height: 100px;">
+          <img class="header" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDIpj7K1NpHAm4Rni0uM2Kft5J1NTNCLL1zA&s" style="height: 100px;">
         </ion-card>
 
         <div class="line"></div>
